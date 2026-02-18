@@ -1,23 +1,34 @@
-﻿using System.ComponentModel;
-using System.Text;
+﻿using System.Text;
 
 namespace Mavis.BaseSixtyFour
 {
     public class BaseSixtyFourEncoder
     {
+        private char[] base64Chars =
+        [
+            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',
+            'Q','R','S','T','U','V','W','X','Y','Z',
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p',
+            'q','r','s','t','u','v','w','x','y','z',
+            '0','1','2','3','4','5','6','7','8','9',
+            '+','/'
+        ];
+
         public string Encode(string stringToEncode)
         {
-            //Convert.ToB
-            Byte[] bytes = new Byte[4];
+            
             var stream = new MemoryStream();
             var byteArray = ASCIIEncoding.ASCII.GetBytes(stringToEncode);
-			int block =
-	(byteArray[0] << 16) |
-	(byteArray[1] << 8) |
-	byteArray[2];
+			int block =	(byteArray[0] << 16) |	(byteArray[1] << 8) | byteArray[2];
 
-            int blocks =
-    (byteArray[0] << 16);
+            var block1 = base64Chars[block >> 18 & 0b111111];
+            var block2 = base64Chars[block >> 12 & 0b111111];
+            var block3 = base64Chars[block >> 6 & 0b111111];
+            var block4 = base64Chars[block & 0b111111];
+
+
+
+
 			return "";
         }
     }
