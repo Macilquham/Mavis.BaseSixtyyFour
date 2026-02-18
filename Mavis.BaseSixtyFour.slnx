@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Mavis.BaseSixtyFour/Mavis.BaseSixtyFour.csproj" />
+  <Project Path="Mavis.BasetSixtyFour.Tests/Mavis.BasetSixtyFour.Tests.csproj" />
+</Solution>
