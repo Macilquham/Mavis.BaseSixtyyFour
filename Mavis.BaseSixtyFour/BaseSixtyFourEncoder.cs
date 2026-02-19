@@ -18,11 +18,10 @@ namespace Mavis.BaseSixtyFour
 
         public string Encode(string stringToEncode)
         {
-            
-            var stream = new MemoryStream();
             var byteArray = ASCIIEncoding.ASCII.GetBytes(stringToEncode);
             var count = 0;
             StringBuilder encodedText = new StringBuilder();
+            
             while(count + 3 <= byteArray.Length) {
 			    int block =	(byteArray[count] << 16) |	(byteArray[count + 1] << 8) | byteArray[count + 2];
                 encodedText.Append(base64Chars[block >> 18 & 0b111111]);
@@ -39,6 +38,7 @@ namespace Mavis.BaseSixtyFour
                 encodedText.Append(base64Chars[paddedTo12Bytes & 0b111111]);
                 encodedText.Append("==");
             }
+
             if(byteArray.Length - count == 2)
             {
                 var paddedTo18Bytes = (byteArray[byteArray.Length - 2] << 8 | byteArray[byteArray.Length - 1]) << 2;
@@ -47,7 +47,6 @@ namespace Mavis.BaseSixtyFour
                 encodedText.Append(base64Chars[paddedTo18Bytes & 0b111111]);
                 encodedText.Append("=");
             }
-
 
 			return encodedText.ToString();
         }
