@@ -18,12 +18,13 @@ namespace Mavis.BaseSixtyFour
 
         public string Encode(string stringToEncode)
         {
-            var byteArray = ASCIIEncoding.ASCII.GetBytes(stringToEncode);
+            var byteArray = ASCIIEncoding.UTF8.GetBytes(stringToEncode);
             var count = 0;
-            StringBuilder encodedText = new StringBuilder();
-            
-            while(count + 3 <= byteArray.Length) {
-			    int block =	(byteArray[count] << 16) |	(byteArray[count + 1] << 8) | byteArray[count + 2];
+            StringBuilder encodedText = new();
+
+            while (count + 3 <= byteArray.Length)
+            {
+                int block = (byteArray[count] << 16) | (byteArray[count + 1] << 8) | byteArray[count + 2];
                 encodedText.Append(base64Chars[block >> 18 & 0b111111]);
                 encodedText.Append(base64Chars[block >> 12 & 0b111111]);
                 encodedText.Append(base64Chars[block >> 6 & 0b111111]);
@@ -31,7 +32,7 @@ namespace Mavis.BaseSixtyFour
                 count = count + 3;
             }
 
-            if(byteArray.Length - count == 1)
+            if (byteArray.Length - count == 1)
             {
                 var paddedTo12Bytes = byteArray[byteArray.Length - 1] << 4;
                 encodedText.Append(base64Chars[paddedTo12Bytes >> 6 & 0b111111]);
@@ -39,7 +40,7 @@ namespace Mavis.BaseSixtyFour
                 encodedText.Append("==");
             }
 
-            if(byteArray.Length - count == 2)
+            if (byteArray.Length - count == 2)
             {
                 var paddedTo18Bytes = (byteArray[byteArray.Length - 2] << 8 | byteArray[byteArray.Length - 1]) << 2;
                 encodedText.Append(base64Chars[paddedTo18Bytes >> 12 & 0b111111]);
@@ -48,7 +49,14 @@ namespace Mavis.BaseSixtyFour
                 encodedText.Append("=");
             }
 
-			return encodedText.ToString();
+            return encodedText.ToString();
+        }
+
+        public string Decode(string input)
+        {
+            return input;
         }
     }
+
+
 }
