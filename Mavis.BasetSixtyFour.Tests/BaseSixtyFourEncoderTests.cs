@@ -4,6 +4,17 @@ using System.Text;
 
 namespace Mavis.BasetSixtyFour.Tests
 {
+	public class BaseSixtyFourDecoderTests
+	{
+		[Fact]
+		public void ExactlyThreeBytes()
+		{
+			var encoder = new BaseSixtyFourEncoder();
+			var encodedString = encoder.Decode("YWFh");
+            
+		}
+
+	}
 	public class BaseSixtyFourEncoderTests
 	{
 		[Fact]
