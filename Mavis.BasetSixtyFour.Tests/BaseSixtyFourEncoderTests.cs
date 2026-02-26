@@ -15,6 +15,14 @@ namespace Mavis.BasetSixtyFour.Tests
 		}
 
 		[Fact]
+		public void TwoByteExcess()
+		{
+			var encoder = new BaseSixtyFourEncoder();
+			var encodedString = encoder.Decode("YWFhYWE=");
+			encodedString.ShouldBe("aaaaa");
+		}
+
+		[Fact]
 		public void ExactlyThreeBytes()
 		{
 			var encoder = new BaseSixtyFourEncoder();

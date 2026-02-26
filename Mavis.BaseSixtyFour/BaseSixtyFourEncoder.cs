@@ -65,9 +65,17 @@ namespace Mavis.BaseSixtyFour
                 var index4 = base64Chars.IndexOf(input[count + 3]);
                 var parsedAsBytes = index1 << 18 | index2 << 12 | (index3 == -1 ? 0 : index3) << 6 | (index4 == -1 ? 0 : index4);
                 
+
                 decodedText.Append((char)(parsedAsBytes >> 16& 0b11111111));
-                decodedText.Append((char)(parsedAsBytes >> 8& 0b11111111));
-                decodedText.Append((char)(parsedAsBytes & 0b11111111));
+				if (index3 != -1)
+				{
+					decodedText.Append((char)(parsedAsBytes >> 8 & 0b11111111));
+				}
+				if (index4 != -1)
+				{
+					decodedText.Append((char)(parsedAsBytes & 0b11111111));
+				}
+				
                 count += 4;
             }
 
