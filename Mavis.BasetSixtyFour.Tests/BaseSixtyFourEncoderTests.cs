@@ -7,11 +7,19 @@ namespace Mavis.BasetSixtyFour.Tests
 	public class BaseSixtyFourDecoderTests
 	{
 		[Fact]
+		public void OneByteExcess()
+		{
+			var encoder = new BaseSixtyFourEncoder();
+			var encodedString = encoder.Decode("YWFhYQ==");
+            encodedString.ShouldBe("aaaa");
+		}
+
+		[Fact]
 		public void ExactlyThreeBytes()
 		{
 			var encoder = new BaseSixtyFourEncoder();
 			var encodedString = encoder.Decode("YWFh");
-            
+            encodedString.ShouldBe("aaa");
 		}
 
 	}
